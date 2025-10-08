@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Responsive Project</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+    body{background:#f4f6f8;color:#222}
+    header{background:#00796b;color:#fff;padding:15px;text-align:center}
+    nav a{color:white;margin:0 10px;text-decoration:none;font-weight:bold}
+    section{padding:20px;max-width:900px;margin:auto}
+    h2{color:#00796b;margin-bottom:10px}
+
+    /* Portfolio */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+    .project{background:#fff;padding:15px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+    
+    /* To-Do */
+    .todo{background:#fff;padding:15px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+    #taskInput{width:80%;padding:8px;border:1px solid #ccc;border-radius:4px}
+    #addBtn{padding:8px 10px;background:#00796b;color:#fff;border:0;border-radius:4px;cursor:pointer}
+    ul{list-style:none;margin-top:10px}
+    li{padding:6px;background:#e0f2f1;margin:5px 0;border-radius:4px;display:flex;justify-content:space-between;align-items:center}
+    li.done{text-decoration:line-through;opacity:0.6}
+
+    /* Products */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+    .product{background:#fff;padding:10px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+    .product h4{margin:5px 0}
+    footer{text-align:center;padding:10px;background:#00796b;color:white;margin-top:20px}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>My Full Responsive Project</h1>
+  <nav>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#todo">To-Do App</a>
+    <a href="#products">Products</a>
+  </nav>
+</header>
+
+<section id="portfolio">
+  <h2>Personal Portfolio</h2>
+  <p>Showcasing my simple web projects:</p>
+  <div class="projects">
+    <div class="project"><h4>Portfolio Website</h4><p>Responsive personal portfolio.</p></div>
+    <div class="project"><h4>To-Do App</h4><p>Save your notes with localStorage.</p></div>
+    <div class="project"><h4>Product Page</h4><p>Filter and sort products easily.</p></div>
+  </div>
+</section>
+
+<section id="todo">
+  <h2>To-Do List App</h2>
+  <div class="todo">
+    <input id="taskInput" placeholder="Add a task..."/>
+    <button id="addBtn">Add</button>
+    <ul id="taskList"></ul>
+  </div>
+</section>
+
+<section id="products">
+  <h2>Product Listing</h2>
+  <input id="search" placeholder="Search products..." style="padding:8px;width:100%;max-width:300px;margin-bottom:10px;">
+  <div class="products" id="productContainer"></div>
+</section>
+
+<footer>
+  <p>Made by Esha • Fully Responsive HTML + CSS + JS Project</p>
+</footer>
+
+<script>
+/* To-Do App */
+let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
+function renderTasks(){
+  taskList.innerHTML="";
+  tasks.forEach((t,i)=>{
+    let li=document.createElement("li");
+    li.textContent=t.text;
+    if(t.done) li.classList.add("done");
+    li.onclick=()=>{t.done=!t.done;save();};
+    let del=document.createElement("button");
+    del.textContent="X";
+    del.onclick=(e)=>{e.stopPropagation();tasks.splice(i,1);save();};
+    li.appendChild(del);
+    taskList.appendChild(li);
+  });
+}
+function save(){localStorage.setItem("tasks",JSON.stringify(tasks));renderTasks();}
+document.getElementById("addBtn").onclick=()=>{
+  if(taskInput.value.trim()){tasks.push({text:taskInput.value,done:false});taskInput.value="";save();}
+};
+renderTasks();
+
+/* Products */
+const products=[
+  {name:"Laptop",price:55000},
+  {name:"Phone",price:20000},
+  {name:"Headphones",price:1500},
+  {name:"Shoes",price:2500}
+];
+const container=document.getElementById("productContainer");
+const search=document.getElementById("search");
+function showProducts(list){
+  container.innerHTML="";
+  list.forEach(p=>{
+    let d=document.createElement("div");
+    d.className="product";
+    d.innerHTML=`<h4>${p.name}</h4><p>₹${p.price}</p>`;
+    container.appendChild(d);
+  });
+}
+search.oninput=()=>{showProducts(products.filter(p=>p.name.toLowerCase().includes(search.value.toLowerCase())));}
+showProducts(products);
+</script>
+</body>
+</html>
