@@ -1,126 +1,182 @@
-
+/* ====== RESET ====== */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-
+/* ====== BASIC STYLES ====== */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.6;
-  background-color: #f8f9fa;
+  background-color: #f4f9f9;
   color: #333;
 }
 
-.navbar {
+/* ====== HEADER ====== */
+header {
+  background: #00796b;
+  color: #fff;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  width: 90%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #007bff;
-  color: white;
-  padding: 15px 25px;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
 }
 
-.nav-links li a {
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
   color: white;
   text-decoration: none;
+  font-weight: 500;
 }
 
-
-.grid-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 20px;
-  padding: 20px;
+.nav-links a:hover {
+  text-decoration: underline;
 }
 
-.sidebar {
-  background-color: #e9ecef;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.contact-form-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-form label {
-  display: block;
-  margin-top: 15px;
-}
-
-form input,
-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-form button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
   cursor: pointer;
 }
 
-form button:hover {
-  background-color: #218838;
-}
-
-#formMessage {
-  margin-top: 15px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.hidden {
-  display: none;
-}
-
-.success {
-  color: green;
-}
-.error {
-  color: red;
-}
-
-
-footer {
-  text-align: center;
-  padding: 15px;
-  background-color: #343a40;
+/* ====== HERO ====== */
+.hero {
+  background: linear-gradient(to right, #004d40, #00796b);
   color: white;
-  margin-top: 30px;
+  text-align: center;
+  padding: 100px 20px;
 }
 
+.hero h2 span {
+  color: #ffcc80;
+}
 
+.btn {
+  display: inline-block;
+  background: #ffcc80;
+  color: #333;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #ffc107;
+}
+
+/* ====== SECTIONS ====== */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.section h2 {
+  color: #00796b;
+  margin-bottom: 20px;
+}
+
+/* ====== PROJECTS ====== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.project-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* ====== CONTACT ====== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background: #00796b;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #004d40;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  background: #00796b;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
-  .grid-layout {
-    grid-template-columns: 1fr;
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #004d40;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
   }
 
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-end;
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
   }
 }
